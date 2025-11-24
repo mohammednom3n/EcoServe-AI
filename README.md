@@ -1,4 +1,4 @@
-# 🌱 Smart Food Waste Forecasting System
+# EcoServe-AI🌱 **(Smart Food Waste Forecasting System)**
 
 A data-driven system that helps cafeterias **cook the right amount of food** by
 **predicting meal demand** and **estimating waste & CO₂ emissions**, then offering
