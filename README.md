@@ -1,110 +1,118 @@
-# EcoServe-AI🌱 **(Smart Food Waste Forecasting System)**
+# 🌱 EcoServe-AI  
+### Smart Food Waste Forecasting & Sustainability Assistant
 
-A data-driven system that helps cafeterias **cook the right amount of food** by
-**predicting meal demand** and **estimating waste & CO₂ emissions**, then offering
-a smarter meal preparation recommendation.
+EcoServe-AI is a machine learning system that helps institutional cafeterias **reduce food waste before it happens**.  
+It predicts **tomorrow’s food waste (in kg)**, converts it to **CO₂ emissions**, and recommends **how much to reduce meal preparation** to minimize waste while still meeting demand.
+
+> 💡 Built for universities, hospitals, and corporate cafeterias that serve hundreds of meals daily.
 
 ---
 
-## 🎯 Problem Overview
+## 📌 Problem Statement
 
-Cafeterias in universities, hospitals, and corporate offices often **cook more food than needed**
-because it is difficult to predict how many people will eat each day.
-Attendance changes due to:
+Cafeterias often cook more food than required because daily demand is hard to predict.  
+Meal consumption varies based on:
 
-- Weather conditions
-- Weekday vs. weekend patterns
-- Exams or special events
-- Seasonal changes
+- ⚠️ Weather (temperature, humidity)
+- 📅 Day of the week
+- 🎉 Events or exams
+- 👨‍🍳 Operational factors (staff skill, previous waste)
+- 🍽️ Seasonal fluctuations
 
 This leads to:
 
-- 🍱 **Food waste**
-- 💸 **Unnecessary operational costs**
-- 🌍 **Higher CO₂ emissions** from producing food that is not consumed
+- 🍱 Significant food waste  
+- 💸 Extra kitchen costs  
+- 🌍 Higher CO₂ emissions from unused food
 
-**Example: GreenBite University Cafeteria**
+### Example: GreenBite University Cafeteria
 
-- Prepares **500–600 meals per day**
-- Records **15–25% leftovers**
-- Wastes **60–80 kg of food per month**
-- Generates **~150–200 kg of CO₂ emissions from waste**
-
----
-
-## 🧠 Solution Summary
-
-The system uses **Machine Learning to forecast daily meal demand** (meals likely to be eaten tomorrow).  
-Then it evaluates the cafeteria’s **planned meal preparation** and provides:
-
-- 📌 **Waste estimation (in kg)**
-- ♻️ **CO₂ emission estimation**
-- 🧾 **Recommended number of meals to cook** (slightly above demand using a small safety margin)
-
-### 🔍 Key Insight
-
-> **We predict how many meals will be eaten.  
-> We do NOT predict the planned amount to be cooked.  
-> We only recommend how to adjust it.**
+| Metric | Value |
+|--------|------|
+| Meals prepared daily | 500–600 |
+| Food leftover | 15–25% |
+| Monthly waste | 60–80 kg |
+| Monthly CO₂ footprint | ~150–200 kg |
 
 ---
 
-## 📌 System Workflow
+## 🎯 Project Goal
 
-### 🧑‍🍳 User Input
-The cafeteria manager enters:
+EcoServe-AI enables cafeterias to:
 
-- Date (or “tomorrow”)
-- Weather (temperature, humidity)
-- Special event? (Yes/No)
-- Planned number of meals to cook (optional — default uses prediction only)
+✔ **Forecast food waste before it occurs**  
+✔ **Estimate carbon footprint caused by waste**  
+✔ **Receive actionable guidance to reduce meal preparation safely**  
 
-### 🤖 Model Prediction (ML)
-Predicts:
-- **Expected meals to be eaten (demand)**
-
-Example:  
-> **480 meals are likely to be eaten**
-
-### 📊 System Calculations (Rules, Not ML)
-
-| Output | How It’s Calculated |
-|--------|---------------------|
-| **Expected waste (kg)** | `max(planned - predicted, 0) × avg_weight_per_meal` |
-| **CO₂ emission (kg)** | `waste_kg × emission_factor` |
-| **Recommended meals** | `predicted × (1 + safety_margin)` (never below predicted) |
-
-📌 *Safety margin = 2–5% (configurable)*  
-📌 *Emission factor ≈ 3 kg CO₂ per 1 kg waste (can be cited)*  
-📌 *Average food weight per meal can be estimated from dataset (≈ 0.8–1 kg per meal)*
-
-### 💡 Example Output
-
-> **Expected demand:** 480 meals  
-> **Your plan:** 550 meals  
-> **Expected waste:** ≈ 70 meals (≈ 60 kg)  
-> **Estimated CO₂:** ≈ 180 kg CO₂  
-> **Recommendation:** Prepare **490–500 meals** instead  
-> *(Enough for everyone + much less waste)*
+> 🧠 **The model predicts waste directly — not attendance.**  
+This provides more accurate sustainability insights and immediately actionable recommendations.
 
 ---
 
-## 📁 Dataset Description
+## 🔬 How EcoServe-AI Works
 
-**File used:** `train.csv`
+### 🔐 Input (from kitchen manager or system)
 
-| Column | Meaning |
+- 📅 Date (or “tomorrow”)
+- 🌡️ Temperature & humidity
+- 🎉 Special event? (Yes/No)
+- 👨‍🍳 Kitchen staff data (experience level, optional)
+- 🍽️ Planned number of meals *(optional)*
+
+### 🤖 Machine Learning Model Output
+- **Predicted food waste (kg)**
+
+### 📊 Rule-Based Calculations (Not ML)
+| Output | Formula |
 |--------|---------|
+| CO₂ Emissions | `predicted_waste_kg × emission_factor` |
+| Waste % | `predicted_waste_kg / estimated_total_food_kg` |
+| Recommended meal adjustment | If waste% > threshold → reduce meals by X% |
+
+📌 Defaults (configurable):  
+- Average meal weight: **0.8–1.0 kg per meal**  
+- Emission factor: **3 kg CO₂ per 1 kg food waste**  
+- Waste tolerance threshold: **10–15%**
+
+---
+
+## 🧾 Example System Output
+
+> 📌 *Your planned meals:* **550**  
+> 🔮 *Predicted waste tomorrow:* **60 kg**  
+> 🌍 *Estimated CO₂ impact:* **~180 kg CO₂**  
+> 🔧 **Recommendation:** Reduce preparation by **10–15%**  
+> 🍽️ *Suggested target:* **470–500 meals**  
+
+If no planned meals are entered:
+
+> 🚦 *Predicted waste:* **50 kg**  
+> 🍽️ **Suggested preparation:** *~480–500 meals* based on historical consumption.
+
+---
+
+## 📁 Dataset Overview (`train.csv`)
+
+| Column | Description |
+|--------|-------------|
 | `date` | Calendar date |
-| `meals_served` | Actual meals eaten (target for ML) |
-| `temperature_C` | Average daily temperature |
-| `humidity_percent` | Average humidity |
-| `day_of_week` | 0 = Monday, 6 = Sunday |
-| `special_event` | 0/1 flag |
-| `kitchen_staff`, `staff_experience` | Operational features |
-| `past_waste_kg` | Previous day’s waste (optional feature) |
-| `waste_category` | Type of waste |
-| `food_waste_kg` | Actual waste (used for estimating avg weight/meal) |
+| `meals_served` | Meals eaten on the day |
+| `temperature_C`, `humidity_percent` | Weather conditions |
+| `day_of_week` | 0=Mon, 6=Sun |
+| `special_event` | 1 if event day |
+| `kitchen_staff`, `staff_experience` | Operational data |
+| `past_waste_kg` | Previous day waste |
+| `waste_category` | Food category wasted |
+| `food_waste_kg` | **Daily food waste (Target variable)** |
+
+### 🎯 Why `food_waste_kg` is the Target?
+
+Although we could predict how many meals will be served, this dataset **is more strongly correlated with waste behavior than demand**.  
+Predicting waste directly allows:
+
+- More accurate forecasting  
+- Direct CO₂ estimation  
+- Immediate sustainability recommendations  
 
 ---
 
