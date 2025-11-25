@@ -12,3 +12,4 @@ def predict_waste(input_data: dict):
     df = pd.DataFrame([input_data])
     waste_kg = model.predict(df)[0]
     return float(waste_kg)
+
