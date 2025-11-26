@@ -25,10 +25,9 @@ class PredictionRequest(BaseModel):
 def predict(req: PredictionRequest):
     data = req.dict()
     planned_meals = data["meals_served"]
-    data["meals_served"] = planned_meals
-    del data["planned_meals"]
 
     waste_kg = predict_waste(data)
+    
     rec = make_recommendation(waste_kg, planned_meals)
 
     return rec
