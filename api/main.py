@@ -23,10 +23,11 @@ class PredictionRequest(BaseModel):
 
 
 @app.post("/predict")
-
 def predict(req: PredictionRequest):
     feature_dic = req.dict()
     planned_meals = feature_dic.pop("planned_meals", None)
 
     waste_kg = predict_waste(feature_dic)
     rec = make_recommendation(waste_kg, planned_meals)
+
+    return rec
