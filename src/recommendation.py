@@ -31,20 +31,20 @@ def make_recommendation(
             suggested_meals = reduction_factor * planned_meals
             result["suggested_meals"] = suggested_meals
             result["message"] = (
-                f"Predicted waste is high: {result['waste_percent']}"
-                f"Consider reducing meals from {planned_meals} to {result['suggested_meals']}"
+                f"Predicted waste is high: {result['waste_percent']}\n"
+                f"Consider reducing meals from {planned_meals} to {int(result['suggested_meals'])}"
             ) 
         
         else:
             result["suggested_meals"] = planned_meals
             result["message"] = (
-                f"Predicted waste is within the target threshold: {result['waste_percent']}"
+                f"Predicted waste is within the target threshold: {result['waste_percent']}\n"
                 f"Current plan of {planned_meals} looks acceptable"
             )
 
     else:
         result["message"] = (
-                f"Predicted waste is: {result['waste_percent']}"
+                f"Predicted waste is: {result['waste_percent']}\n"
                 f"Provide a planned_meals value to get a concrete meal preparation recommendation"
             )    
         

@@ -19,15 +19,16 @@ class PredictionRequest(BaseModel):
     waste_category: str
     month: int
     is_weekend: int
-    planned_meals: Optional[int] = None
 
 
 @app.post("/predict")
 def predict(req: PredictionRequest):
-    feature_dic = req.dict()
-    planned_meals = feature_dic.pop("planned_meals", None)
+    data = req.dict()
+    planned_meals = data["meals_served"]
+    data["meals_served"] = planned_meals
+    del data["planned_meals"]
 
-    waste_kg = predict_waste(feature_dic)
+    waste_kg = predict_waste(data)
     rec = make_recommendation(waste_kg, planned_meals)
 
     return rec
