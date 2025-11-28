@@ -5,7 +5,7 @@ EcoServe-AI is a machine learning system that helps cafeterias **prevent food wa
 Instead of reacting after food is thrown away, EcoServe-AI **predicts tomorrow’s waste**, estimates its **CO₂ impact**, and **recommends a safe reduction in meal preparation** to avoid overproduction **without risking shortages.**
 
 🚀 **Live Demo:**  
-👉 https://your-streamlit-app-url.streamlit.app/
+👉 https://ecoserve.streamlit.app/
 
 ---
 
