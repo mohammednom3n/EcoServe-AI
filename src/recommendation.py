@@ -50,37 +50,3 @@ def make_recommendation(
         
 
     return result
-
-###########################################################
-
-
-def make_recommendation(
-    predicted_waste_kg: float,
-    planned_meals: int,
-    avg_meal_weight_kg: float = 0.8,
-    waste_threshold: float = 0.10,
-    emission_factor: float = 2.5,
-    safety_margin: float = 0.02
-):
-    waste = predicted_waste_kg
-    co2 = round(waste * emission_factor, 2)
-
-    # Algebraic solution
-    min_meals = waste / (avg_meal_weight_kg * waste_threshold)
-    min_meals = ceil(min_meals)
-
-    # Apply safety margin
-    suggested = ceil(min_meals * (1 + safety_margin))
-
-    # Current waste %
-    current_pct = waste / (planned_meals * avg_meal_weight_kg) * 100
-
-    result = {
-        "predicted_waste_kg": waste,
-        "estimated_co2_emission": co2,
-        "waste_percent": round(current_pct, 2),
-        "suggested_meals": suggested,
-        "message": f"To keep waste below {waste_threshold*100}%, prepare about {suggested} meals."
-    }
-
-    return result
