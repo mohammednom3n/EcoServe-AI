@@ -138,6 +138,8 @@ EcoServe-AI/
 ├── models/
 │   └── ecoserve_model.pkl
 ├── Dockerfile
+├── requirements-dev.txt
+├── requirements-prod.txt
 ├── requirements.txt
 └── README.md
 ```
