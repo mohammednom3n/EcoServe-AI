@@ -102,10 +102,9 @@ Waste ratio: 14.5%
   "special_event": 0,
   "past_waste_kg": 40.0,
   "staff_experience": "intermediate",
-  "waste_category": "mixed",
+  "waste_category": "meat",
   "month": 11,
   "is_weekend": 0,
-  "planned_meals": 500
 }
 ```
 
@@ -144,6 +143,8 @@ EcoServe-AI/
 ├── requirements-dev.txt
 ├── requirements-prod.txt
 ├── requirements.txt
+├── ui.py
+├── client_test.py
 └── README.md
 ```
 
